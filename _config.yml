@@ -1,7 +1,7 @@
 # Site settings
 title: Ross W. Drew - Software Developer
 description: "Personal site of RoxSoft"
-baseurl: "" # for test: remove string '/space-jekyll-templa' to ''
+baseurl: "https://rossdrew.github.io/" # for test: remove string '/space-jekyll-templa' to ''
 url: "https://rossdrew.github.io/" # for test: remove string 'http://victorvoid.github.io' to '' but in production: 'https://yourusername.githu.io'
 # User settings
 username: Ross W. Drew
