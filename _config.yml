@@ -1,16 +1,14 @@
 # Site settings
-title: Lorem Ipsum - Web Developer
-description: "A blog about lorem ipsum ..."
+title: Ross W. Drew - Software Developer
+description: "Personal site of RoxSoft"
 baseurl: "" # for test: remove string '/space-jekyll-templa' to ''
-url: "http://victorvoid.github.io/space-jekyll-template/" # for test: remove string 'http://victorvoid.github.io' to '' but in production: 'https://yourusername.githu.io'
+url: "http://rossdrew.github.io/space-jekyll-template/" # for test: remove string 'http://victorvoid.github.io' to '' but in production: 'https://yourusername.githu.io'
 # User settings
-username: lorem ipsum
-user_title: Lorem Ipsum - FrontEnd
-email: lorem.lorem@ipsum.com
-twitter_username: loremipsum
-github_username:  loremipsum
-gplus_username:  loremipsum
-disqus_username: loremipsum
+username: Ross W. Drew
+user_title: Software Developer
+email: thek1ng13@hotmail.com
+twitter_username: ross_drew
+github_username:  rossdrew
 
 # Build settings
 markdown: kramdown
@@ -39,11 +37,7 @@ links:
     url: /about
 # projects in header index
 projects:
-  - name: asciilang
-    url: https://github.com/victorvoid/asciilang
-  - name: vim-frontend
-    url: https://github.com/victorvoid/vim-frontend
-  - name: generator-capybara
-    url: https://github.com/victorvoid/generator-capybara 
+  - name: EmuRox
+    url: https://github.com/rossdrew/emuRox
 # exclude my node related stuff
 exclude: ['package.json', 'src', 'node_modules']
