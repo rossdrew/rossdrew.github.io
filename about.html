@@ -2,18 +2,17 @@
 layout: minimal
 title: "About me"
 permalink: /about/index.html
-description: "Ross Drew, Software Developer"
+description: "Ross Drew, Software Engineer"
 ---
 
-<img itemprop="Me" class="img-rounded about_perfil" src="{{ "/assets/img/me2.png"}}" alt="My profile">
+<img itemprop="image" class="img-rounded about_perfil" src="{{ "/assets/img/me2.png"}}" alt="My profile">
 
 <h2>My projects</h2>
 
 <div class="aboutme">
-	<dl class="recent">
+	<ul class="recent">
 		{% for project in site.projects %}
-	    	<dt><a href="{{ project.url}}"><h3 class="project-name" itemprop="name">{{ project.name }}</h3></a></dt>
-	    	<dd>{{ project.name }}</dd>
+	    	<li><a href="{{ project.url}}"><h3 class="project-name" itemprop="name">{{ project.name }}</h3></a>: {{ project.description }}</li>
 	    {% endfor %}
-	</dl>
+	</ul>
 </div>
