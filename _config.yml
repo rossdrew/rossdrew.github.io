@@ -39,5 +39,6 @@ links:
 projects:
   - name: EmuRox
     url: https://github.com/rossdrew/emuRox
+    description: A 6502 emulator with views to becoming a NES emulator
 # exclude my node related stuff
 exclude: ['package.json', 'src', 'node_modules']
