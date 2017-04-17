@@ -2,7 +2,7 @@
 title: Ross W. Drew - Software Developer
 description: "Personal site of RoxSoft"
 baseurl: "" # for test: remove string '/space-jekyll-templa' to ''
-url: "http://rossdrew.github.io/space-jekyll-template/" # for test: remove string 'http://victorvoid.github.io' to '' but in production: 'https://yourusername.githu.io'
+url: "http://rossdrew.github.io/" # for test: remove string 'http://victorvoid.github.io' to '' but in production: 'https://yourusername.githu.io'
 # User settings
 username: Ross W. Drew
 user_title: Software Developer
@@ -26,7 +26,7 @@ compress_html:
 # Links to include in menu navigation
 links:
   - title: home
-    url: /
+    url: //
   - title: my posts
     url: /posts
   - title: series
