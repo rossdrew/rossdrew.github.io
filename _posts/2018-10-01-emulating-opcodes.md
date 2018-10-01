@@ -16,7 +16,7 @@ categories:
 
 ## Introduction
 
-The largest personal project I am currently undertaking, is that of an emulator.  The main goal was to come up with a larger product that I am completely in control of and can experiment with tools and methods to become a better programmer.  Sub goals include learning something about the machines I grew up with and maybe, perhaps getting to the point where I've written my own retro NES emulator.  Long term, pie in the sky goal was to create a very nicely designed, highly tested, pluggable, multi-emulator.
+The largest personal project I am currently undertaking, is that of an [emulator](https://github.com/rossdrew/emuRox).  The main goal was to come up with a larger product that I am completely in control of and can experiment with tools and methods to become a better programmer.  Sub goals include learning something about the machines I grew up with and maybe, perhaps getting to the point where I've written my own retro NES emulator.  Long term, pie in the sky goal was to create a very nicely designed, highly tested, pluggable, multi-emulator.
 I wanted to strongly focus on what I feel is important in a Java program:
 
  - Highly Tested
@@ -99,7 +99,7 @@ It led to some pretty hard to maintain code, but correct; and we have tests to p
 
 ## Approach Number 2: Functional Java Code
 
-I want to only write minimise code duplication writing code once for each operation, and once for each addressing mode.  As we already reference opcodes by Enum, I wondered if it was possible to parse an opcode value (`0x0A`) into it's Enum (`ASL_A`) then simply call an `execute()` method on that Enum instance which fires off an attached lambda providing an environment (memory, registers and alu).  As each Op-Code Enum knows it's own Addressing Mode, it could call an `address()` on that Addressing Mode (which also calls an attached lambda) providing us with all we need to make composable instructions.
+I want to minimise duplication, writing code once for each operation, and once for each addressing mode.  As we already reference opcodes by Enum, I wondered if it was possible to parse an opcode value (`0x0A`) into it's Enum (`ASL_A`) then simply call an `execute()` method on that Enum instance which fires off an attached lambda providing an environment (memory, registers and alu).  As each Op-Code Enum knows it's own Addressing Mode, it could call an `address()` on that Addressing Mode (which also calls an attached lambda) providing us with all we need to make composable instructions.
 
 ### Overview
 
@@ -160,6 +160,12 @@ public enum OpCode implements Instruction {
     }
 ```
 
+This means the huge `switch` statement becomes one line of code
+
+```
+opCode.perform(alu, registers, memory);
+```
+
 ### Problems
 
 There are some instructions which don't fit this pattern nicely:
@@ -170,5 +176,5 @@ The `IMPLIED` instructions do slightly different addressing based on the `Operat
 
   - `Operation.JMP`: It -unlike all other instructions- passes a word (not a byte) from the addressing mode that could be `AddressingMode.INDIRECT`
 
-These do two things that make them hard to deal with.  Firstly, their addressing `ABSOLUTE`; the two byte (word) address that the `Operation` is supposed to use to load into the Program Counter.  We could deal with this in the same way as the `IMPLIED` (in that the `Operation` then does some of it's own addressing) if not for the case where `JMP` uses `INDIRECT`-`ABSOLUTE` addressing, which will take a two byte argument then from the address specified by that word, load a two byte address into the Program Counter.  In this case, it cannot be done in the `Operation` because it has no idea what it's Addressing Mode is.
+These do two things that make them hard to deal with.  Firstly, their addressing is `ABSOLUTE`; the two byte (word) address that the `Operation` is supposed to use to load into the Program Counter.  We could deal with this in the same way as the `IMPLIED` (in that the `Operation` then does some of it's own addressing) if not for the case where `JMP` uses `INDIRECT`-`ABSOLUTE` addressing, which will take a two byte argument then from the address specified by that word, load a two byte address into the Program Counter.  In this case, it cannot be done in the `Operation` because it has no idea what it's Addressing Mode is.
 
