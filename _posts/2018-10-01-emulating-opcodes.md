@@ -16,17 +16,18 @@ categories:
 
 ## Introduction
 
-The largest personal project I am currently undertaking, is that of an [emulator](https://github.com/rossdrew/emuRox).  The main goal was to come up with a larger product that I am completely in control of and can experiment with tools and methods to become a better programmer.  Sub goals include learning something about the machines I grew up with and maybe, perhaps getting to the point where I've written my own retro NES emulator.  Long term, pie in the sky goal was to create a very nicely designed, highly tested, pluggable, multi-emulator.
-I wanted to strongly focus on what I feel is important in a Java program:
+The largest personal project I am currently undertaking, is that of an [emulator](https://github.com/rossdrew/emuRox).  The main goal was to come up with a larger product that I am completely in control of and can experiment with tools and methods to become a better programmer.  Sub goals include learning something about the machines I grew up with and maybe, perhaps getting to the point where I've written my own retro NES emulator.  Long term, pie in the sky goal was to create a well designed, highly tested, accessable, open-source, pluggable, multi-emulator.
+
+First and foremost though, I wanted to strongly focus on what I feel is important in a good Java program:
 
  - Highly Tested
  - Readable
  - Efficient
- - Maintainable
+ - Maintainable / Extensible
  
-Satusfying all of the above id equal -IMHO- to "well designed".
+Satisfying all of the above, IMHO I would say it was generally well designed.
 
-I started with the most documented part of the NES.  The MOS6502 processor.  
+So, I started with the most documented part of the NES.  The MOS6502 processor.  What I want to talk about today, is how I emulated op-codes and how my approach gave me a nice upgrade path when I realised my implementation wasn't as great as it could be.
 
 ## Approach Number 1: The Result of Test Driven Development (TDD)
 
@@ -89,7 +90,8 @@ This is of course truncated as there are many, many more opcodes on the 6502.  L
  - Highly Tested:  _Floats around 98-99% line coverage.  Static analyis. Mutation tested to 98%_
  - Readable: Partially. Each opcode has a path.  The instructions to execute it are in english. Little annoying that you need to scroll so much and complicated instructions end up being messy to nest method calls so that they read fluidly.
  - Efficient: For large numbers of cases, switch statements are pretty efficient.
- - Maintainable: No.  There are loads of methods that are there to reduce duplication which end up being duplications themselves.  Parts of the logic are no seperable like addressing and operations.  
+ - Maintainable: No.  There are loads of methods that are there to reduce duplication which end up being duplications themselves.  Parts of the logic are no seperable like addressing and operations.
+ - Extensible: Lets see...
 
 So I wanted to see if I could do better.
 
