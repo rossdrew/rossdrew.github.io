@@ -105,13 +105,13 @@ I want to minimise duplication, writing code once for each operation, and once f
 
 ### Overview
 
-So my enum becomes a definition, a byte value, it's addressing mode and the operation performed.  The OpCode is then the intersection of Addressing Mode and Operation
+So my enum becomes a definition containing a byte value, it's addressing mode and the operation performed.  The OpCode is then the intersection of Addressing Mode and Operation
 
 ```
 ASL_A(0x0A, AddressingMode.ACCUMULATOR, Operation.ASL);  
 ```
 
-The operation is an operation on the environment, given an addressed value:
+The operation argument is an operation on the environment (`a`: accumulator, `r`: registers, `m`: memory), given an addressed value (`v`):
 
 ```
     public enum Operation implements AddressedValueInstruction {
@@ -130,7 +130,7 @@ The operation is an operation on the environment, given an addressed value:
         }
 ```
 
-The addressing mode uses an environment to address a value, runs a given operation on it and places the return value back at the addressed location:
+The addressing mode uses an environment (`r`: registers, `m`: memory, `a`: accumulator) to address a value, runs a given operation (`i`) on it and places the return `value` back at the addressed location:
 
 ```
 public enum AddressingMode implements Addressable {
@@ -179,4 +179,30 @@ The `IMPLIED` instructions do slightly different addressing based on the `Operat
   - `Operation.JMP`: It -unlike all other instructions- passes a word (not a byte) from the addressing mode that could be `AddressingMode.INDIRECT`
 
 These do two things that make them hard to deal with.  Firstly, their addressing is `ABSOLUTE`; the two byte (word) address that the `Operation` is supposed to use to load into the Program Counter.  We could deal with this in the same way as the `IMPLIED` (in that the `Operation` then does some of it's own addressing) if not for the case where `JMP` uses `INDIRECT`-`ABSOLUTE` addressing, which will take a two byte argument then from the address specified by that word, load a two byte address into the Program Counter.  In this case, it cannot be done in the `Operation` because it has no idea what it's Addressing Mode is.
+
+### Solution
+
+So in the end we have a bit of a hybrid:
+
+```
+        final Mos6502OpCode opCode = Mos6502OpCode.from(nextProgramByte().getRawValue());
+
+        //Execute the opcode
+        log.debug("Instruction: {}...", opCode.getOpCodeName());
+        switch (opCode){
+            case JMP_ABS:
+                registers.setPC(nextProgramWord());
+            break;
+
+            case JMP_IND:
+                registers.setPC(getWordOfMemoryAt(nextProgramWord()));
+            break;
+
+            default:
+                opCode.perform(alu, registers, memory);
+                break;
+        }
+```
+
+It's not the prettiest but it's much nicer than it was and when I think of the next iteration to simplify this, I know that my tests are specific yet generic enough to support refactoring and redesign.
 
