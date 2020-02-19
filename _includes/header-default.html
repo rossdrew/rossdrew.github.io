@@ -51,12 +51,7 @@
              {% for project in site.projects limit:3%}
                 <li>
                     <a title="Show my recent project" href="{{ project.url}}">
-                        <h2 class="post-title" itemprop="name">
-                            <a aria-label="EmuRox - Emulator" title="EmuRox - Emulator" target="_blank" href="https://github.com/rossdrew/emuRox">
-                                <svg class="icon icon-emurox"><use xlink:href="#icon-emurox"></use></svg>
-                            </a>
-                        {{ project.name }}
-                    </h2>
+                        <h2 class="post-title" itemprop="name">{{ project.name }}</h2>
                     </a>
                 </li>
               {% endfor %}
