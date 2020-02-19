@@ -22,7 +22,7 @@
                 <svg class="icon icon-github-alt"><use xlink:href="#icon-github-alt"></use></svg>
             </a>
 
-            <a aria-label="My DEV.toBlog" title="View my Developer blog" target="_blank" href="https://dev.to/rossdrew">
+            <a aria-label="My DEV.to Blog" title="View my Developer blog" target="_blank" href="https://dev.to/rossdrew">
                 <svg class="icon icon-devto"><use xlink:href="#icon-devto"></use></svg>
             </a>
 
@@ -33,7 +33,6 @@
             <a aria-label="Use the RSS to get updated" title="Register for my RSS" target="_blank" href="{{ "/feed.xml" | prepend: site.baseurl }}">
                 <svg class="icon icon-rss"><use xlink:href="#icon-rss"></use></svg>
             </a>
-
         </div>
 
         <ul class="recent">
@@ -52,7 +51,12 @@
              {% for project in site.projects limit:3%}
                 <li>
                     <a title="Show my recent project" href="{{ project.url}}">
-                        <h2 class="post-title" itemprop="name">{{ project.name }}</h2>
+                        <h2 class="post-title" itemprop="name">
+                            <a aria-label="EmuRox - Emulator" title="EmuRox - Emulator" target="_blank" href="https://github.com/rossdrew/emuRox">
+                                <svg class="icon icon-emurox"><use xlink:href="#icon-emurox"></use></svg>
+                            </a>
+                        {{ project.name }}
+                    </h2>
                     </a>
                 </li>
               {% endfor %}
